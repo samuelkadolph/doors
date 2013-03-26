@@ -25,7 +25,7 @@ func (d *Door) Open(ifk *phidgets.InterfaceKit) error {
 		return err
 	}
 
-	time.Sleep(20 * time.Millisecond)
+	time.Sleep(200 * time.Millisecond)
 
 	return ifk.Outputs[*d.Lock].SetState(false)
 }
