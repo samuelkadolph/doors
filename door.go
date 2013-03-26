@@ -24,26 +24,26 @@ func (d *Door) MagEngage(ifk *phidgets.InterfaceKit) error {
 func (d *Door) MarshalJSON() ([]byte, error) {
 	o := make(map[string]interface{})
 
-	o["ID"] = d.ID
-	o["Name"] = d.Name
+	o["id"] = d.ID
+	o["name"] = d.Name
 
 	if d.Lock != nil {
-		o["Lock"] = "supported"
+		o["lock"] = "supported"
 	} else {
-		o["Lock"] = "unsupported"
+		o["lock"] = "unsupported"
 	}
 
 	if d.Mag != nil {
 		s, err := ifk.Outputs[*d.Mag].State()
 		if err != nil {
-			o["Mag"] = "error"
+			o["mag"] = "error"
 		} else if s {
-			o["Mag"] = "engaged"
+			o["mag"] = "engaged"
 		} else {
-			o["Mag"] = "disengaged"
+			o["mag"] = "disengaged"
 		}
 	} else {
-		o["Mag"] = "unsupported"
+		o["mag"] = "unsupported"
 	}
 
 	return json.Marshal(o)
