@@ -7,6 +7,7 @@ import (
 )
 
 type Door struct {
+	ID   string
 	Lock *int
 	Mag  *int
 	Name string
@@ -20,18 +21,11 @@ func (d *Door) MagEngage(ifk *phidgets.InterfaceKit) error {
 	return ifk.Outputs[*d.Mag].SetState(true)
 }
 
-func (d *Door) Open(ifk *phidgets.InterfaceKit) error {
-	if err := ifk.Outputs[*d.Lock].SetState(true); err != nil {
-		return err
-	}
-
-	time.Sleep(200 * time.Millisecond)
-
-	return ifk.Outputs[*d.Lock].SetState(false)
-}
-
 func (d *Door) MarshalJSON() ([]byte, error) {
-	o := make(map[string]string)
+	o := make(map[string]interface{})
+
+	o["ID"] = d.ID
+	o["Name"] = d.Name
 
 	if d.Lock != nil {
 		o["Lock"] = "supported"
@@ -43,8 +37,7 @@ func (d *Door) MarshalJSON() ([]byte, error) {
 		s, err := ifk.Outputs[*d.Mag].State()
 		if err != nil {
 			o["Mag"] = "error"
-		}
-		if s {
+		} else if s {
 			o["Mag"] = "engaged"
 		} else {
 			o["Mag"] = "disengaged"
@@ -53,7 +46,15 @@ func (d *Door) MarshalJSON() ([]byte, error) {
 		o["Mag"] = "unsupported"
 	}
 
-	o["Name"] = d.Name
-
 	return json.Marshal(o)
+}
+
+func (d *Door) Open(ifk *phidgets.InterfaceKit) error {
+	if err := ifk.Outputs[*d.Lock].SetState(true); err != nil {
+		return err
+	}
+
+	time.Sleep(200 * time.Millisecond)
+
+	return ifk.Outputs[*d.Lock].SetState(false)
 }

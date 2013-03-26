@@ -23,6 +23,10 @@ type hash map[string]interface{}
 var config Config
 var ifk *phidgets.InterfaceKit
 
+func DoorIndex(w http.ResponseWriter, r *http.Request) {
+	response(w, 200, hash{}, config.Doors)
+}
+
 func DoorMagDisengage(w http.ResponseWriter, r *http.Request) {
 	var d *Door
 
@@ -93,10 +97,6 @@ func DoorShow(w http.ResponseWriter, r *http.Request) {
 	response(w, 200, hash{}, d)
 }
 
-func DoorIndex(w http.ResponseWriter, r *http.Request) {
-	response(w, 200, hash{}, config.Doors)
-}
-
 func Root(w http.ResponseWriter, r *http.Request) {
 	response(w, 200, hash{}, hash{"hi": true})
 }
@@ -142,9 +142,9 @@ func checkSecret(w http.ResponseWriter, r *http.Request) bool {
 	return true
 }
 
-func findDoor(name string) *Door {
+func findDoor(id string) *Door {
 	for _, d := range config.Doors {
-		if d.Name == name {
+		if d.ID == id {
 			return d
 		}
 	}
@@ -153,13 +153,16 @@ func findDoor(name string) *Door {
 
 func response(w http.ResponseWriter, s int, h hash, b interface{}) {
 	o, _ := json.Marshal(b)
+
 	h["Content-Length"] = len(o)
 	h["Content-Type"] = "application/json"
+
 	for k, v := range h {
-		w.Header().Set(k, fmt.Sprintf("%v", v))
+		w.Header().Set(k, fmt.Sprintf("%s", v))
 	}
+
 	w.WriteHeader(s)
-	w.Write([]byte(o))
+	w.Write(o)
 }
 
 func init() {
