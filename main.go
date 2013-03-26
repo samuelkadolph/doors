@@ -80,7 +80,7 @@ func DoorOpen(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-func ShowDoor(w http.ResponseWriter, r *http.Request) {
+func DoorShow(w http.ResponseWriter, r *http.Request) {
 	var d *Door
 
 	if !checkSecret(w, r) {
@@ -91,6 +91,10 @@ func ShowDoor(w http.ResponseWriter, r *http.Request) {
 	}
 
 	response(w, 200, hash{}, d)
+}
+
+func DoorIndex(w http.ResponseWriter, r *http.Request) {
+	response(w, 200, hash{}, config.Doors)
 }
 
 func Root(w http.ResponseWriter, r *http.Request) {
@@ -188,7 +192,8 @@ func main() {
 	r.NewRoute().Methods("POST").Path("/doors/{door}/mag/disengage").Handler(http.HandlerFunc(DoorMagDisengage))
 	r.NewRoute().Methods("POST").Path("/doors/{door}/mag/engage").Handler(http.HandlerFunc(DoorMagEngage))
 	r.NewRoute().Methods("POST").Path("/doors/{door}/open").Handler(http.HandlerFunc(DoorOpen))
-	r.NewRoute().Methods("GET").Path("/doors/{door}").Handler(http.HandlerFunc(ShowDoor))
+	r.NewRoute().Methods("GET").Path("/doors/{door}").Handler(http.HandlerFunc(DoorShow))
+	r.NewRoute().Methods("GET").Path("/doors").Handler(http.HandlerFunc(DoorIndex))
 	r.NewRoute().Methods("GET").Path("/").Handler(http.HandlerFunc(Root))
 	r.NewRoute().Handler(http.HandlerFunc(NotFound))
 
