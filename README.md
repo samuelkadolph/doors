@@ -14,7 +14,7 @@
 
 This will be mostly up to you because it will vary widly depending on what door controller you use.
 What you need to do is connect the PhidgetSBC3 to the relays and the relays to the door controller in such a way that when closing the relay, the door will be unlocked.
-I recommend the [Kantech KT-300](http://www.kantech.com/Products/controllers_kt300.aspx) and [Kantech EntraPass](http://www.kantech.com/Products/software_entrapass.aspx) because that is what we use at Shopify and we've got it working because we configured the inputs to be secondary Request to exit (REX) for each door.
+I recommend the [Kantech KT-300](http://www.kantech.com/Products/controllers_kt300.aspx) and [Kantech EntraPass](http://www.kantech.com/Products/software_entrapass.aspx) because that is what we use at Shopify and we've got it working. The KT-300 has auxiliary inputs that can be configured as secondary Request to exit (REX) for each door.
 
 ### Software
 
@@ -54,3 +54,7 @@ I recommend the [Kantech KT-300](http://www.kantech.com/Products/controllers_kt3
 <a href="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.39.50_AM.png"><img src="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.39.50_AM.png" alt="Set the executable and enable boot startup for the project" width="828" height="787" /></a>
 7. Start the application
 <a href="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.40.49_AM.png"><img src="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.40.49_AM.png" alt="Start the application" width="828" height="506" /></a>
+8. Tail the log
+<pre><code>tail -f /tmp/doors/stdout</code></pre>
+9. Open a door!
+<pre><code>curl http://phidgetsbc.local:4567/doors/XXX/unlock -d "secret=SECRET"</code></pre>
