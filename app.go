@@ -97,6 +97,10 @@ func DoorUnlock(w http.ResponseWriter, r *http.Request) {
 	if !checkDoor(w, r, &d) {
 		return
 	}
+	if d.Lock == nil {
+		response(w, 422, hash{}, hash{"error": "door does not support opening"})
+		return
+	}
 
 	ch, err := d.Unlock()
 
@@ -219,10 +223,6 @@ func checkDoor(w http.ResponseWriter, r *http.Request, o **Door) bool {
 
 	if d == nil {
 		response(w, 404, hash{}, hash{"error": "door not found"})
-		return false
-	}
-	if d.Lock == nil {
-		response(w, 422, hash{}, hash{"error": "door does not support opening"})
 		return false
 	}
 
