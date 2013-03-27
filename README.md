@@ -58,3 +58,20 @@ I recommend the [Kantech KT-300](http://www.kantech.com/Products/controllers_kt3
 <pre><code>tail -f /tmp/doors/stdout</code></pre>
 9. Open a door!
 <pre><code>curl http://phidgetsbc.local:4567/doors/XXX/unlock -d "secret=SECRET"</code></pre>
+
+## API
+
+    GET /doors
+> Gets all the doors. Returns a JSON array of hashes.
+
+    GET /doors/{door}
+> Gets a door. Returns a JSON hash with `id`, `lock`, `mag`, and `name` fields.
+
+    POST /doors/{door}/unlock
+> Unlocks a door. Returns a JSON hash with a `success` field and possibly an `error` field.
+
+    POST /doors/{door}/mag/engage
+> engages the mag for a door. Returns a JSON hash with a `success` field and possibly an `error` field.
+
+    POST /doors/{door}/mag/disengage
+> Disengages the mag for a door. Returns a JSON hash with a `success` field and possibly an `error` field.
