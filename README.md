@@ -61,17 +61,54 @@ I recommend the [Kantech KT-300](http://www.kantech.com/Products/controllers_kt3
 
 ## API
 
+Secret should be passed in as a query string or as an url encoded body. All responses are in JSON.
+
+#### Actions
+
     GET /doors
-> Gets all the doors. Returns a JSON array of hashes.
+> Gets all the doors.<br />
+> Returns: array of hashes
 
     GET /doors/{door}
-> Gets a door. Returns a JSON hash with `id`, `lock`, `mag`, and `name` fields.
+> Gets a door.<br />
+> Returns: hash with `id`, `lock`, `mag`, and `name` fields
 
     POST /doors/{door}/unlock
-> Unlocks a door. Returns a JSON hash with a `success` field and possibly an `error` field.
+> Unlocks a door.<br />
+> Returns: hash with `success` field and possibly `error` field
 
     POST /doors/{door}/mag/engage
-> engages the mag for a door. Returns a JSON hash with a `success` field and possibly an `error` field.
+> Engages the mag for a door.<br />
+> Returns: hash with `success` field and possibly `error` field
 
     POST /doors/{door}/mag/disengage
-> Disengages the mag for a door. Returns a JSON hash with a `success` field and possibly an `error` field.
+> Disengages the mag for a door.<br />
+> Returns: hash with `success` field and possibly `error` field
+
+#### Fields
+
+    error
+> Error message.<br />
+> Type: String
+
+    id
+> ID of a door.<br />
+> Type: String
+
+    lock
+> Status of the lock of a door.<br />
+> Type: String<br />
+> Values: `error`, `locked`, `unlocked`, `unsupported`
+
+    mag
+> Status of a mag of a door.<br />
+> Type: String<br />
+> Values: `disengaged`, `engaged`, `error`, `unsupported`
+
+    name
+> Nice name of a door.<br />
+> Type: String
+
+    success
+> Result of an action.<br />
+> Type: Boolean
