@@ -26,17 +26,17 @@ I recommend the [Kantech KT-300](http://www.kantech.com/Products/controllers_kt3
 4. Enable the full Debian Package Repository
 <a href="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.58.28_AM.png"><img src="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.58.28_AM.png" alt="Enable the full Debian Package Repository " width="828" height="748" class="size-full wp-image-772" /></a>
 5. Add your ssh key to the phidgetsbc *(optional)*
- * `ssh root@phidgetsbc.local "mkdir -p .ssh && echo '$(cat ~/.ssh/id_rsa.pub)' >> .ssh/authorized_keys"`
+<pre><code>ssh root@phidgetsbc.local "mkdir -p .ssh && echo '$(cat ~/.ssh/id_rsa.pub)' >> .ssh/authorized_keys"</code></pre>
 6. SSH in
- * `ssh root@phidgetsbc.local`
+<pre><code>ssh root@phidgetsbc.local</code></pre>
 7. Add my apt key
- * `apt-key adv --keyserver keys.gnupg.net --recv-keys B4F808A2`
+<pre><code>apt-key adv --keyserver keys.gnupg.net --recv-keys B4F808A2</code></pre>
 8. Add my apt repo
- * `echo "deb http://apt.samuelkadolph.com/ wheezy main" > /etc/apt/sources.list.d/samuelkadolph.list`
+<pre><code>echo "deb http://apt.samuelkadolph.com/ wheezy main" > /etc/apt/sources.list.d/samuelkadolph.list</code></pre>
 9. Update apt
- * `apt-get update`
+<pre><code>apt-get update</code></pre>
 10. Install the required packages
- * `apt-get install golang-tip build-essential git-core libphidget21-dev ca-certificates -y`
+<pre><code>apt-get install golang-tip build-essential git-core libphidget21-dev ca-certificates -y</code></pre>
 
 ## Installation
 
@@ -54,14 +54,12 @@ I recommend the [Kantech KT-300](http://www.kantech.com/Products/controllers_kt3
 <a href="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.39.50_AM.png"><img src="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.39.50_AM.png" alt="Set the executable and enable boot startup for the project" width="828" height="787" /></a>
 7. Start the application
 <a href="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.40.49_AM.png"><img src="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.40.49_AM.png" alt="Start the application" width="828" height="506" /></a>
-8. Tail the log
-<pre><code>tail -f /tmp/doors/stdout</code></pre>
-9. Open a door!
+8. Open a door!
 <pre><code>curl http://phidgetsbc.local:4567/doors/XXX/unlock -d "secret=SECRET"</code></pre>
 
 ## API
 
-Secret should be passed in as a query string or as an url encoded body. All responses are in JSON.
+Secret should be passed in as a query string or as a url encoded body. All responses are in JSON.
 
 #### Actions
 
