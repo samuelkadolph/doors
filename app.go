@@ -45,7 +45,7 @@ var configPath = flag.String("config", "./config.json", "Path to config file")
 var port = flag.Int("port", 4567, "Port for the server to listen on")
 
 func DoorIndex(w http.ResponseWriter, r *http.Request) {
-	response(w, 200, hash{}, config.Doors)
+	response(w, 200, config.Doors)
 }
 
 func DoorMagDisengage(w http.ResponseWriter, r *http.Request) {
@@ -62,9 +62,9 @@ func DoorMagDisengage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := d.MagDisengage(); err != nil {
-		response(w, 200, hash{}, hash{"success": false, "error": err})
+		response(w, 200, hash{"success": false, "error": err})
 	} else {
-		response(w, 200, hash{}, hash{"success": true})
+		response(w, 200, hash{"success": true})
 	}
 }
 
@@ -82,9 +82,9 @@ func DoorMagEngage(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err := d.MagEngage(); err != nil {
-		response(w, 200, hash{}, hash{"success": false, "error": err})
+		response(w, 200, hash{"success": false, "error": err})
 	} else {
-		response(w, 200, hash{}, hash{"success": true})
+		response(w, 200, hash{"success": true})
 	}
 }
 
@@ -98,7 +98,7 @@ func DoorUnlock(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 	if d.Lock == nil {
-		response(w, 422, hash{}, hash{"error": "door does not support opening"})
+		response(w, 422, hash{"error": "door does not support opening"})
 		return
 	}
 
@@ -109,9 +109,9 @@ func DoorUnlock(w http.ResponseWriter, r *http.Request) {
 	}
 
 	if err != nil {
-		response(w, 200, hash{}, hash{"success": false, "error": err})
+		response(w, 200, hash{"success": false, "error": err})
 	} else {
-		response(w, 200, hash{}, hash{"success": true})
+		response(w, 200, hash{"success": true})
 	}
 }
 
@@ -125,15 +125,15 @@ func DoorShow(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	response(w, 200, hash{}, d)
+	response(w, 200, d)
 }
 
 func NotFound(w http.ResponseWriter, r *http.Request) {
-	response(w, 404, hash{}, hash{"error": "not found"})
+	response(w, 404, hash{"error": "not found"})
 }
 
 func Root(w http.ResponseWriter, r *http.Request) {
-	response(w, 200, hash{}, hash{"hi": true})
+	response(w, 200, hash{"hi": true})
 }
 
 func (d *Door) LockStatus() string {
@@ -222,7 +222,7 @@ func checkDoor(w http.ResponseWriter, r *http.Request, o **Door) bool {
 	d := findDoor(v["door"])
 
 	if d == nil {
-		response(w, 404, hash{}, hash{"error": "door not found"})
+		response(w, 404, hash{"error": "door not found"})
 		return false
 	}
 
@@ -232,7 +232,7 @@ func checkDoor(w http.ResponseWriter, r *http.Request, o **Door) bool {
 
 func checkDoorMag(w http.ResponseWriter, r *http.Request, d *Door) bool {
 	if d.Mag == nil {
-		response(w, 422, hash{}, hash{"error": "door does not support mag"})
+		response(w, 422, hash{"error": "door does not support mag"})
 		return false
 	}
 
@@ -243,7 +243,7 @@ func checkSecret(w http.ResponseWriter, r *http.Request) bool {
 	r.ParseForm()
 
 	if config.Secret != r.Form.Get("secret") {
-		response(w, 403, hash{}, hash{"error": "bad secret"})
+		response(w, 403, hash{"error": "bad secret"})
 		return false
 	}
 
@@ -259,15 +259,11 @@ func findDoor(id string) *Door {
 	return nil
 }
 
-func response(w http.ResponseWriter, s int, h hash, b interface{}) {
+func response(w http.ResponseWriter, s int, b interface{}) {
 	o, _ := json.Marshal(b)
 
-	h["Content-Length"] = len(o)
-	h["Content-Type"] = "application/json"
-
-	for k, v := range h {
-		w.Header().Set(k, fmt.Sprintf("%v", v))
-	}
+	w.Header().Set("Content-Length", fmt.Sprintf("%d", len(o)))
+	w.Header().Set("Content-Type", "application/json")
 
 	w.WriteHeader(s)
 	w.Write(o)
