@@ -22,12 +22,13 @@ type Config struct {
 }
 
 type Door struct {
+	Floor        *string
 	ID           string
 	Lock         *int
 	LockFeedback *int
 	Mag          *int
 	MagFeedback  *int
-	Name         string
+	Name         *string
 
 	lockCond  *sync.Cond
 	lockMutex *sync.Mutex
