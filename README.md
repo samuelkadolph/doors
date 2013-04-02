@@ -20,11 +20,11 @@ I recommend the [Kantech KT-300](http://www.kantech.com/Products/controllers_kt3
 
 1. Plug your PhidgetSBC3 into power and network
 2. Go to [phidgetsbc.local](http://phidgetsbc.local/) and set a password
-<a href="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.53.39_AM.png"><img src="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.53.39_AM.png" alt="Go to phidgetsbc.local and set a password" width="828" height="363" class="size-full wp-image-768" /></a>
+<a href="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/04/Screen_Shot_2013-04-02_at_12.34.19_PM.png"><img src="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/04/Screen_Shot_2013-04-02_at_12.34.19_PM.png" alt="Go to phidgetsbc.local and set a password" width="822" height="362" /></a>
 3. Enable the SSH server
-<a href="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.54.05_AM.png"><img src="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.54.05_AM.png" alt="Enable the SSH server" width="828" height="656" class="size-full wp-image-769" /></a>
+<a href="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/04/Screen_Shot_2013-04-02_at_12.35.01_PM.png"><img src="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/04/Screen_Shot_2013-04-02_at_12.35.01_PM.png" alt="Enable the SSH server" width="822" height="657" /></a>
 4. Enable the full Debian Package Repository
-<a href="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.58.28_AM.png"><img src="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.58.28_AM.png" alt="Enable the full Debian Package Repository " width="828" height="748" class="size-full wp-image-772" /></a>
+<a href="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/04/Screen_Shot_2013-04-02_at_12.42.05_PM.png"><img src="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/04/Screen_Shot_2013-04-02_at_12.42.05_PM.png" alt="Enable the full Debian Package Repository " width="822" height="748" /></a>
 5. Add your ssh key to the phidgetsbc *(optional)*
 <pre><code>ssh root@phidgetsbc.local "mkdir -p .ssh && echo '$(cat ~/.ssh/id_rsa.pub)' >> .ssh/authorized_keys"</code></pre>
 6. SSH in
@@ -41,9 +41,9 @@ I recommend the [Kantech KT-300](http://www.kantech.com/Products/controllers_kt3
 ## Installation
 
 1. Go to [phidgetsbc.local](http://phidgetsbc.local/) and log in
-<a href="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.35.27_AM.png"><img src="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.35.27_AM.png" alt="Go to phidgetsbc.local and log in" width="828" height="299" /></a>
+<a href="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/04/Screen_Shot_2013-04-02_at_12.48.20_PM.png"><img src="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/04/Screen_Shot_2013-04-02_at_12.48.20_PM.png" alt="Go to phidgetsbc.local and log in" width="822" height="295" /></a>
 2. Create a project
-<a href="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.38.37_AM.png"><img src="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.38.37_AM.png" alt="Create a project" width="828" height="517" /></a>
+<a href="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/04/Screen_Shot_2013-04-02_at_12.48.53_PM.png"><img src="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/04/Screen_Shot_2013-04-02_at_12.48.53_PM.png" alt="Create a project" width="822" height="519" /></a>
 3. Install the application
 <pre><code>GOPATH=$HOME/go go get github.com/samuelkadolph/doors</code></pre>
 4. Copy the binary to the project
@@ -51,9 +51,9 @@ I recommend the [Kantech KT-300](http://www.kantech.com/Products/controllers_kt3
 5. Create the config file
 <pre><code>TODO</code></pre>
 6. Set the executable and enable boot startup for the project
-<a href="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.39.50_AM.png"><img src="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.39.50_AM.png" alt="Set the executable and enable boot startup for the project" width="828" height="787" /></a>
+<a href="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/04/Screen_Shot_2013-04-02_at_1.11.08_PM.png"><img src="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/04/Screen_Shot_2013-04-02_at_1.11.08_PM.png" alt="Set the executable and enable boot startup for the project" width="822" height="799" /></a>
 7. Start the application
-<a href="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.40.49_AM.png"><img src="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/03/Screen_Shot_2013-03-25_at_1.40.49_AM.png" alt="Start the application" width="828" height="506" /></a>
+<a href="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/04/Screen_Shot_2013-04-02_at_1.13.54_PM.png"><img src="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/04/Screen_Shot_2013-04-02_at_1.13.54_PM.png" alt="Start the application" width="822" height="450" /></a>
 8. Open a door!
 <pre><code>curl http://phidgetsbc.local:4567/doors/XXX/unlock -d "secret=SECRET"</code></pre>
 
