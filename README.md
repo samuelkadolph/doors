@@ -2,7 +2,7 @@
 
 ## Description
 
-## What you need
+## Hardware
 
 * [PhidgetSBC3](http://www.phidgets.com/products.php?product_id=1073_0)
 * Relays (i.e. [Dual SSR Relay Board](http://www.phidgets.com/products.php?category=9&product_id=3053_0) or [8 Channel SSR Module Board](http://www.sainsmart.com/8-channel-5v-solid-state-relay-module-board-omron-ssr-4-pic-arm-avr-dsp-arduino.html))
@@ -49,13 +49,16 @@ I recommend the [Kantech KT-300](http://www.kantech.com/Products/controllers_kt3
 4. Copy the binary to the project
 <pre><code>cp $HOME/go/bin/doors /usr/userapps/doors/doors</code></pre>
 5. Create the config file
-<pre><code>TODO</code></pre>
+<pre><code>cd $HOME/go/bin/doors
+    ./doors config:set secret=42
+    ./doors config:add interfacekit
+    ./doors config:add door -id=reception -name=Reception -lock=0 -lockfeedback=0</code></pre>
 6. Set the executable and enable boot startup for the project
 <a href="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/04/Screen_Shot_2013-04-02_at_1.11.08_PM.png"><img src="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/04/Screen_Shot_2013-04-02_at_1.11.08_PM.png" alt="Set the executable and enable boot startup for the project" width="822" height="799" /></a>
 7. Start the application
 <a href="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/04/Screen_Shot_2013-04-02_at_1.13.54_PM.png"><img src="https://i0.wp.com/samuel.kadolph.com/wp-content/uploads/2013/04/Screen_Shot_2013-04-02_at_1.13.54_PM.png" alt="Start the application" width="822" height="450" /></a>
 8. Open a door!
-<pre><code>curl http://phidgetsbc.local:4567/doors/XXX/unlock -d "secret=SECRET"</code></pre>
+<pre><code>curl http://phidgetsbc.local:4567/doors/reception/unlock -d "secret=42"</code></pre>
 
 ## API
 
@@ -67,19 +70,19 @@ Secret should be passed in as a query string or as a url encoded body. All respo
 > Gets all the doors.<br />
 > Returns: array of hashes
 
-    GET /doors/{door}
+    GET /doors/{id}
 > Gets a door.<br />
 > Returns: hash with `id`, `lock`, `mag`, and `name` fields
 
-    POST /doors/{door}/unlock
+    POST /doors/{id}/unlock
 > Unlocks a door.<br />
 > Returns: hash with `success` field and possibly `error` field
 
-    POST /doors/{door}/mag/engage
+    POST /doors/{id}/mag/engage
 > Engages the mag for a door.<br />
 > Returns: hash with `success` field and possibly `error` field
 
-    POST /doors/{door}/mag/disengage
+    POST /doors/{id}/mag/disengage
 > Disengages the mag for a door.<br />
 > Returns: hash with `success` field and possibly `error` field
 
