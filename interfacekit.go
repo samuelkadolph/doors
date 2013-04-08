@@ -11,30 +11,31 @@ type InterfaceKit struct {
 	Doors             []*Door
 	Host              *string
 	Label             *string
+	LockDelay         *int
 	Password          *string
 	Port              *int
 	Serial            *int
 
-	ifk *phidgets.InterfaceKit
+	*phidgets.InterfaceKit
 }
 
 func (i *InterfaceKit) Load() error {
 	var err error
 
-	if i.ifk, err = phidgets.NewInterfaceKit(); err != nil {
+	if i.InterfaceKit, err = phidgets.NewInterfaceKit(); err != nil {
 		return err
 	}
 
-	if err = i.ifk.Open(i.connector()); err != nil {
+	if err = i.Open(i.connector()); err != nil {
 		return err
 	}
 
-	if err = i.ifk.WaitForAttachment(i.timeout()); err != nil {
+	if err = i.WaitForAttachment(i.timeout()); err != nil {
 		return err
 	}
 
 	for _, d := range i.Doors {
-		d.ifk = i.ifk
+		d.ifk = i
 	}
 
 	return nil

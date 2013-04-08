@@ -2,7 +2,6 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/samuelkadolph/go/phidgets"
 	"sync"
 	"time"
 )
@@ -16,7 +15,7 @@ type Door struct {
 	MagFeedback  *int
 	Name         *string
 
-	ifk       *phidgets.InterfaceKit
+	ifk       *InterfaceKit
 	lockCond  *sync.Cond
 	lockMutex *sync.Mutex
 	magCond   *sync.Cond
@@ -86,7 +85,11 @@ func (d *Door) Unlock() (<-chan error, error) {
 		return nil, err
 	}
 
-	time.Sleep(200 * time.Millisecond)
+	if d.ifk.LockDelay != nil {
+		time.Sleep(time.Duration(*d.ifk.LockDelay) * time.Millisecond)
+	} else {
+		time.Sleep(200 * time.Millisecond)
+	}
 
 	if err = d.ifk.Outputs[*d.Lock].SetState(false); err != nil {
 		return nil, err
